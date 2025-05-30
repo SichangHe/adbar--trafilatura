@@ -65,19 +65,10 @@ def tree_cleaning(tree: HtmlElement, options: Extractor) -> HtmlElement:
     # strip targeted elements
     strip_tags(tree, stripping_list)
 
-    # prevent removal of paragraphs
-    if options.focus == "recall" and tree.find(".//p") is not None:
-        tcopy = deepcopy(tree)
-        for expression in cleaning_list:
-            for element in tree.iter(expression):
-                delete_element(element)
-        if tree.find(".//p") is None:
-            tree = tcopy
     # delete targeted elements
-    else:
-        for expression in cleaning_list:
-            for element in tree.iter(expression):
-                delete_element(element)
+    for expression in cleaning_list:
+        for element in tree.iter(expression):
+            delete_element(element)
 
     return prune_html(tree, options.focus)
 
