@@ -10,10 +10,8 @@ readme = "README.md"
 license = { text = "Apache 2.0" }
 dynamic = ["version"]
 requires-python = ">=3.8"
-authors = [
-  {name = "Adrien Barbaresi", email = "barbaresi@bbaw.de"}
-]
-keywords=[
+authors = [{ name = "Adrien Barbaresi", email = "barbaresi@bbaw.de" }]
+keywords = [
     "corpus",
     "html2text",
     "news-crawler",
@@ -65,6 +63,14 @@ dependencies = [
     "lxml == 4.9.2 ; platform_system == 'Darwin' and python_version <= '3.8'",
     "lxml >= 5.3.0 ; platform_system != 'Darwin' or python_version > '3.8'",
     "urllib3 >= 1.26, < 3",
+    "brotli",
+    "cchardet >= 2.1.7; python_version < '3.11'",                              # build issue
+    "faust-cchardet >= 2.1.19; python_version >= '3.11'",
+    "htmldate[speed] >= 1.9.2",
+    "py3langid >= 0.3.0",
+    "pycurl >= 7.45.3",
+    "urllib3[socks]",
+    "zstandard >= 0.23.0",
 ]
 
 # https://setuptools.pypa.io/en/latest/userguide/pyproject_config.html
@@ -73,14 +79,11 @@ packages = ["trafilatura"]
 
 # https://packaging.python.org/en/latest/guides/single-sourcing-package-version/
 [tool.setuptools.dynamic]
-version = {attr = "trafilatura.__version__"}
+version = { attr = "trafilatura.__version__" }
 
 # https://setuptools.pypa.io/en/stable/userguide/datafiles.html
 [tool.setuptools.package-data]
-trafilatura = [
-    "data/tei_corpus.dtd",
-    "settings.cfg",
-]
+trafilatura = ["data/tei_corpus.dtd", "settings.cfg"]
 
 [project.scripts]
 trafilatura = "trafilatura.cli:main"
@@ -93,24 +96,8 @@ trafilatura = "trafilatura.cli:main"
 
 # Development extras
 [project.optional-dependencies]
-dev = [
-    "flake8",
-    "mypy",
-    "pytest",
-    "pytest-cov",
-    "types-lxml",
-    "types-urllib3",
-]
-all = [
-    "brotli",
-    "cchardet >= 2.1.7; python_version < '3.11'",  # build issue
-    "faust-cchardet >= 2.1.19; python_version >= '3.11'",
-    "htmldate[speed] >= 1.9.2",
-    "py3langid >= 0.3.0",
-    "pycurl >= 7.45.3",
-    "urllib3[socks]",
-    "zstandard >= 0.23.0",
-]
+dev = ["flake8", "mypy", "pytest", "pytest-cov", "types-lxml", "types-urllib3"]
+all = []
 
 [tool.pytest.ini_options]
 testpaths = "tests/*test*.py"
