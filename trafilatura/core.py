@@ -121,7 +121,7 @@ def trafilatura_sequence(
         )
 
     # rescue: baseline extraction on original/dirty tree
-    if len_text < options.min_extracted_size and not options.focus == "precision":  # type: ignore[attr-defined]
+    if options.rescue and len_text < options.min_extracted_size and not options.focus == "precision":  # type: ignore[attr-defined]
         postbody, temp_text, len_text = baseline(deepcopy(tree_backup))
         LOGGER.debug("non-clean extracted length: %s (extraction)", len_text)
 
@@ -152,6 +152,7 @@ def bare_extraction(
     as_dict: bool = False,
     prune_xpath: Optional[Any] = None,
     config: Any = DEFAULT_CONFIG,
+    rescue: bool = True,
     options: Optional[Extractor] = None,
 ) -> Optional[Union[Document, Dict[str, Any]]]:
     """Internal function for text extraction returning bare Python variables.
@@ -184,6 +185,7 @@ def bare_extraction(
         prune_xpath: Provide an XPath expression to prune the tree before extraction.
             can be str or list of str.
         config: Directly provide a configparser configuration.
+        rescue: Whether to use a baseline fallback extractor if the extraction is too short.
         options: Directly provide a whole extractor configuration.
 
     Returns:
@@ -217,6 +219,7 @@ def bare_extraction(
             author_blacklist=author_blacklist,
             url_blacklist=url_blacklist,
             date_params=date_extraction_params,
+            rescue=rescue,
         )
 
     try:

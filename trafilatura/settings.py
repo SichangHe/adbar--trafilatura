@@ -96,6 +96,7 @@ class Extractor:
         "date_params",
         "author_blacklist",
         "url_blacklist",
+        "rescue",
     ]
 
     def __init__(
@@ -121,6 +122,7 @@ class Extractor:
         author_blacklist: Optional[Set[str]] = None,
         url_blacklist: Optional[Set[str]] = None,
         date_params: Optional[Dict[str, str]] = None,
+        rescue: bool = False,
     ):
         self._set_source(url, source)
         self._set_format(output_format)
@@ -151,6 +153,7 @@ class Extractor:
             self.config.getboolean("DEFAULT", "EXTENSIVE_DATE_SEARCH")
         )
         self.max_tree_size = None
+        self.rescue = rescue
 
     def _set_source(self, url: Optional[str], source: Optional[str]) -> None:
         "Set the source attribute in a robust way."
