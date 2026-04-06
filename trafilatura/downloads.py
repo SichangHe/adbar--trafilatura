@@ -10,7 +10,6 @@ import random
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from configparser import ConfigParser
 from functools import partial
-from importlib.metadata import version
 from io import BytesIO
 from time import sleep
 from typing import (
@@ -30,6 +29,8 @@ import urllib3
 
 from courlan import UrlStore
 from courlan.network import redirection_test
+
+import trafilatura
 
 from .settings import DEFAULT_CONFIG, Extractor
 from .utils import URL_BLACKLIST_REGEX, decode_file, is_acceptable_length, make_chunks
@@ -74,7 +75,7 @@ def create_pool(**args: Any) -> Union[urllib3.PoolManager, Any]:
 
 DEFAULT_HEADERS = urllib3.util.make_headers(accept_encoding=True)  # type: ignore[no-untyped-call]
 USER_AGENT = (
-    "trafilatura/" + version("trafilatura") + " (+https://github.com/adbar/trafilatura)"
+    "trafilatura/" + trafilatura.__version__ + " (+https://github.com/adbar/trafilatura)"
 )
 DEFAULT_HEADERS["User-Agent"] = USER_AGENT
 

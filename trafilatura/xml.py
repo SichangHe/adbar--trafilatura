@@ -16,13 +16,15 @@ from typing import List, Optional
 from lxml.etree import (_Element, Element, SubElement, XMLParser,
                         fromstring, tostring, DTD)
 
+import trafilatura
+
 from .settings import Document, Extractor
 from .utils import is_element_in_item, is_first_element_in_item, is_in_table_cell, is_last_element_in_cell, \
     is_last_element_in_item, sanitize, sanitize_tree, text_chars_test
 
 
 LOGGER = logging.getLogger(__name__)
-PKG_VERSION = version("trafilatura")
+PKG_VERSION = trafilatura.__version__
 
 # validation
 TEI_SCHEMA = str(Path(__file__).parent / "data" / "tei_corpus.dtd")
